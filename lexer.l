@@ -3,6 +3,7 @@
 #include <string.h>
 #include "y.tab.h"
 %}
+%option yylineno
 
 space ( )
 tab (\t)
@@ -19,9 +20,8 @@ minus (\-)
 
 
 %%
-
-"Utwórz zmienną" { return VARIABLE_DECLARATION; }
-"o rozmiarze" { return TABLE_SIZE_DECLARATION; }
+.+ {printf("%s",yytext);return 0;}
+"Utworz zmienna" { return VARIABLE_DECLARATION; }
 "Jeżeli" { return IF_START; }
 "Dopóki" { return WHILE_START; }
 "to:" { return THEN; }
@@ -37,11 +37,12 @@ minus (\-)
 }
 {floatnumber} {
     char* sf = malloc(sizeof(yytext));
-    for (int i = 0; i < (sizeof(yytext) / sizeof(char)); i++) {
+    int i = 0;
+    for (i; i < (sizeof(yytext) / sizeof(char)); i++) {
         if (yytext[i] != ',') sf[i] = yytext[i];
         else sf[i] = '.';
     }
-    yylval.floatVal = atof(s);
+    yylval.floatVal = atof(sf);
     return FLOAT_VALUE;
 }
 {string} {
@@ -52,6 +53,13 @@ minus (\-)
     yylval.varName = strdup(yytext);
     return VARIABLE_NAME;
 }
+
+{endline} {
+    printf("%s",yytext);
+    yylineno++;
+    return 0;
+}
+
 
 %%
 
