@@ -16,6 +16,8 @@ extern int yylineno;
 %token              DOT
 %token              COMMA
 %token              COLON
+%token              SPACE
+%token              EQUALS
 %token              PLUS
 %token              MINUS
 %token <intVal>     INT_VALUE
@@ -27,27 +29,22 @@ extern int yylineno;
 
 %%
 
-LINIE   :   ASSIGMENT DOT   {printf("cze");}
-        |   LINIE ASSIGMENT {;} 
+LINIE   :   ASSIGMENT DOT {printf("cze");}
+        |   LINIE ASSIGMENT 
         ;
 
-ASSIGMENT : VARIABLE_DECLARATION EXP
+ASSIGMENT : VARIABLE_DECLARATION SPACE EXP
           ;
 
-EXP     : VARIABLE_NAME '=' OPP
+EXP     : VARIABLE_NAME SPACE EQUALS SPACE OPP {printf("cze");}
         ;
 
 OPP     : TYPE
-        | OPP PLUS TYPE
-        | OPP MINUS TYPE {$$ = $1 - $3;}
-        | TYPE PLUS TYPE
-        | TYPE MINUS TYPE
+        | TYPE SPACE PLUS SPACE TYPE
+        | TYPE SPACE MINUS SPACE TYPE
         ;
 
-TYPE    : INT_VALUE {printf("cze");}
-        | FLOAT_VALUE {$$ = $1;}
-        | STRING_VALUE {;}
-        | VARIABLE_NAME {;}
+TYPE    : INT_VALUE 
         ;
 
 

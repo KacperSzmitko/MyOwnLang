@@ -1,10 +1,11 @@
 %{
 #include <stdio.h>
 #include <string.h>
+#include "y.tab.h"
 %}
 %option yylineno
 
-space ( )
+space ([ ])
 tab (\t)
 endline (\n)
 intnumber (\-]?[0-9]+)
@@ -14,6 +15,7 @@ variable ([a-zA-Z][_a-zA-Z0-9]*)
 dot (\.)
 comma (,)
 colon (:)
+equals (=)
 plus (\+)
 minus (\-)
 
@@ -21,7 +23,6 @@ minus (\-)
 %%
 
 "Utwórz zmienną" { return VARIABLE_DECLARATION; printf("TEST"); }
-"o rozmiarze" { return TABLE_SIZE_DECLARATION; }
 "Jeżeli" { return IF_START; }
 "Dopóki" { return WHILE_START; }
 "to:" { return THEN; }
@@ -29,6 +30,8 @@ minus (\-)
 {dot} { return DOT; }
 {comma} { return COMMA; }
 {colon} { return COLON; }
+{space} { return SPACE; }
+{equals} { return EQUALS; }
 {plus} { return PLUS; }
 {minus} { return MINUS; }
 {intnumber} {
@@ -55,7 +58,6 @@ minus (\-)
 }
 
 {endline} {
-    printf("%s",yytext);
     yylineno++;
     return 0;
 }

@@ -1,8 +1,10 @@
-/* A Bison parser, made by GNU Bison 2.7.  */
 
-/* Bison interface for Yacc-like parsers in C
+/* A Bison parser, made by GNU Bison 2.4.1.  */
+
+/* Skeleton interface for Bison's Yacc-like parsers in C
    
-      Copyright (C) 1984, 1989-1990, 2000-2012 Free Software Foundation, Inc.
+      Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
+   Free Software Foundation, Inc.
    
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,15 +32,6 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
-/* Enabling traces.  */
-#ifndef YYDEBUG
-# define YYDEBUG 0
-#endif
-#if YYDEBUG
-extern int yydebug;
-#endif
 
 /* Tokens.  */
 #ifndef YYTOKENTYPE
@@ -54,12 +47,14 @@ extern int yydebug;
      DOT = 263,
      COMMA = 264,
      COLON = 265,
-     PLUS = 266,
-     MINUS = 267,
-     INT_VALUE = 268,
-     FLOAT_VALUE = 269,
-     STRING_VALUE = 270,
-     VARIABLE_NAME = 271
+     SPACE = 266,
+     EQUALS = 267,
+     PLUS = 268,
+     MINUS = 269,
+     INT_VALUE = 270,
+     FLOAT_VALUE = 271,
+     STRING_VALUE = 272,
+     VARIABLE_NAME = 273
    };
 #endif
 /* Tokens.  */
@@ -71,23 +66,28 @@ extern int yydebug;
 #define DOT 263
 #define COMMA 264
 #define COLON 265
-#define PLUS 266
-#define MINUS 267
-#define INT_VALUE 268
-#define FLOAT_VALUE 269
-#define STRING_VALUE 270
-#define VARIABLE_NAME 271
+#define SPACE 266
+#define EQUALS 267
+#define PLUS 268
+#define MINUS 269
+#define INT_VALUE 270
+#define FLOAT_VALUE 271
+#define STRING_VALUE 272
+#define VARIABLE_NAME 273
+
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
 {
-/* Line 2058 of yacc.c  */
+
+/* Line 1676 of yacc.c  */
 #line 9 "parser.y"
 int intVal; float floatVal;char* strVal;char* varName;
 
-/* Line 2058 of yacc.c  */
+
+/* Line 1676 of yacc.c  */
 #line 92 "y.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
@@ -97,18 +97,4 @@ int intVal; float floatVal;char* strVal;char* varName;
 
 extern YYSTYPE yylval;
 
-#ifdef YYPARSE_PARAM
-#if defined __STDC__ || defined __cplusplus
-int yyparse (void *YYPARSE_PARAM);
-#else
-int yyparse ();
-#endif
-#else /* ! YYPARSE_PARAM */
-#if defined __STDC__ || defined __cplusplus
-int yyparse (void);
-#else
-int yyparse ();
-#endif
-#endif /* ! YYPARSE_PARAM */
 
-#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
