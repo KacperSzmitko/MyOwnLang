@@ -1,7 +1,6 @@
 %{
 #include <stdio.h>
 #include <string.h>
-#include "y.tab.h"
 %}
 
 space ( )
@@ -20,7 +19,7 @@ minus (\-)
 
 %%
 
-"Utwórz zmienną" { return VARIABLE_DECLARATION; }
+"Utwórz zmienną" { return VARIABLE_DECLARATION; printf("TEST"); }
 "o rozmiarze" { return TABLE_SIZE_DECLARATION; }
 "Jeżeli" { return IF_START; }
 "Dopóki" { return WHILE_START; }
@@ -58,3 +57,4 @@ minus (\-)
 int yywrap(void){
     return 1;
 }
+

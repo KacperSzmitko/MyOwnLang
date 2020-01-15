@@ -1,0 +1,4 @@
+Utwórz zmienną a = 2.
+a = a + 2.
+Jeżeli a > 2, to:
+- a = a + 1.
