@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 %}
+%option yylineno
 
 space ( )
 tab (\t)
@@ -36,11 +37,12 @@ minus (\-)
 }
 {floatnumber} {
     char* sf = malloc(sizeof(yytext));
-    for (int i = 0; i < (sizeof(yytext) / sizeof(char)); i++) {
+    int i = 0;
+    for (i; i < (sizeof(yytext) / sizeof(char)); i++) {
         if (yytext[i] != ',') sf[i] = yytext[i];
         else sf[i] = '.';
     }
-    yylval.floatVal = atof(s);
+    yylval.floatVal = atof(sf);
     return FLOAT_VALUE;
 }
 {string} {
@@ -51,6 +53,13 @@ minus (\-)
     yylval.varName = strdup(yytext);
     return VARIABLE_NAME;
 }
+
+{endline} {
+    printf("%s",yytext);
+    yylineno++;
+    return 0;
+}
+
 
 %%
 
