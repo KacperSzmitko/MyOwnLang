@@ -8,7 +8,7 @@
 space ([ ])
 tab (\t)
 endline (\n)
-intnumber (\-]?[0-9]+)
+intnumber ([\-]?[0-9]+)
 floatnumber ([\-]?[0-9]*,?[0-9]+)
 string (\"(\\.|[^"])*\")
 variable ([a-zA-Z][_a-zA-Z0-9]*)
@@ -22,7 +22,8 @@ minus (\-)
 
 %%
 
-"Utwórz zmienną" { return VARIABLE_DECLARATION; printf("TEST"); }
+"Utwórz zmienną" { return VARIABLE_DECLARATION; }
+"Wyświetl zmienną" { return OUT; }
 "Jeżeli" { return IF_START; }
 "Dopóki" { return WHILE_START; }
 "to:" { return THEN; }
@@ -30,7 +31,7 @@ minus (\-)
 {dot} { return DOT; }
 {comma} { return COMMA; }
 {colon} { return COLON; }
-{space} { return SPACE; }
+{space} {return SPACE; }
 {equals} { return EQUALS; }
 {plus} { return PLUS; }
 {minus} { return MINUS; }
@@ -59,7 +60,7 @@ minus (\-)
 
 {endline} {
     yylineno++;
-    return 0;
+    return ENDLINE;
 }
 
 
