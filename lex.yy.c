@@ -600,7 +600,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 23 "lexer.l"
+#line 24 "lexer.l"
 
 
 #line 607 "lex.yy.c"
@@ -696,72 +696,72 @@ do_action:	/* This label is used only to access EOF actions. */
 	{ /* beginning of action switch */
 case 1:
 YY_RULE_SETUP
-#line 25 "lexer.l"
+#line 26 "lexer.l"
 { return VARIABLE_DECLARATION; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 26 "lexer.l"
+#line 27 "lexer.l"
 { return OUT; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 27 "lexer.l"
+#line 28 "lexer.l"
 { return IF_START; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 28 "lexer.l"
+#line 29 "lexer.l"
 { return WHILE_START; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 29 "lexer.l"
+#line 30 "lexer.l"
 { return THEN; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 30 "lexer.l"
+#line 31 "lexer.l"
 { return ELSE; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 31 "lexer.l"
+#line 32 "lexer.l"
 { return DOT; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 32 "lexer.l"
+#line 33 "lexer.l"
 { return COMMA; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 33 "lexer.l"
+#line 34 "lexer.l"
 { return COLON; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 34 "lexer.l"
+#line 35 "lexer.l"
 {return SPACE; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 35 "lexer.l"
+#line 36 "lexer.l"
 { return EQUALS; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 36 "lexer.l"
+#line 37 "lexer.l"
 { return PLUS; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 37 "lexer.l"
+#line 38 "lexer.l"
 { return MINUS; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 38 "lexer.l"
+#line 39 "lexer.l"
 {
     yylval.intVal = atoi(yytext); 
     return INT_VALUE;
@@ -769,7 +769,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 42 "lexer.l"
+#line 43 "lexer.l"
 {
     char* sf = malloc(sizeof(yytext));
     int i = 0;
@@ -783,15 +783,36 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 52 "lexer.l"
+#line 53 "lexer.l"
 {
+    int i;
+    for (i = 0; yytext[i] != '\0'; i++);
+    if (i == 2) yylval.strVal = strdup("");
+    if (i == 3) yylval.strVal = strdup(&yytext[1]);
+    else {
+    
+    char* s;
+    
+    int j;
+    for (i = 0; yytext[i] != '\0'; i++);
+    s = malloc((i-1) * sizeof(char));
+
+    for (i = 1; yytext[i+1] != '\0'; i++) {
+        s[i-1] = yytext[i];
+        
+    }
+    
+
+    printf(s);
+
     yylval.strVal = strdup(yytext);
+    }
     return STRING_VALUE;
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 56 "lexer.l"
+#line 78 "lexer.l"
 {
     yylval.varName = strdup(yytext);
     return VARIABLE_NAME;
@@ -799,7 +820,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 61 "lexer.l"
+#line 83 "lexer.l"
 {
     yylineno++;
     return ENDLINE;
@@ -807,10 +828,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 67 "lexer.l"
+#line 89 "lexer.l"
 ECHO;
 	YY_BREAK
-#line 814 "lex.yy.c"
+#line 835 "lex.yy.c"
 			case YY_STATE_EOF(INITIAL):
 				yyterminate();
 
@@ -1694,7 +1715,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 67 "lexer.l"
+#line 89 "lexer.l"
 
 
 int yywrap(void){
