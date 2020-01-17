@@ -5,6 +5,7 @@
 %}
 %option yylineno
 
+
 space ([ ])
 tab (\t)
 endline (\n)
@@ -50,7 +51,28 @@ minus (\-)
     return FLOAT_VALUE;
 }
 {string} {
+    int i;
+    for (i = 0; yytext[i] != '\0'; i++);
+    if (i == 2) yylval.strVal = strdup("");
+    if (i == 3) yylval.strVal = strdup(&yytext[1]);
+    else {
+    
+    char* s;
+    
+    int j;
+    for (i = 0; yytext[i] != '\0'; i++);
+    s = malloc((i-1) * sizeof(char));
+
+    for (i = 1; yytext[i+1] != '\0'; i++) {
+        s[i-1] = yytext[i];
+        
+    }
+    
+
+    printf(s);
+
     yylval.strVal = strdup(yytext);
+    }
     return STRING_VALUE;
 }
 {variable} {
