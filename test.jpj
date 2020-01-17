@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-Utwórz zmienną a = 4.
-Wyświetl zmienną a.
-Utwórz zmienną b = 7.
-Wyświetl zmienną b.
-Utwórz zmienną b = 6.
-Wyświetl zmienną b.
-Utwórz zmienną c = 7,6.
+Utwórz zmienną a = 5,1.
+Utwórz zmienną c = 5,1 + a + a.
 Wyświetl zmienną c.
-=======
-Utwórz zmienną a = "s".
-Wyświetl zmienną a.
->>>>>>> 262dc5f9fe931ede0ef39667f8b738192c4f7c44
+c = 10,6 + a.
+Wyświetl zmienną c.

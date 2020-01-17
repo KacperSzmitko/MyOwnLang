@@ -33,7 +33,9 @@ void print_val(char* name);
 void VarVar(char* left,char* right);//funkcja do przypisywania zmiennej do zmiennej
 int get_var_type(char *name);//uzyskaj typ zmiennej 0 - int,  1 - float, 2 - string
 
-void print_int();
+void test(float a,float b);
+
+
 %}
 
 %union {int intVal; float floatVal;char* strVal;char* varName;}
@@ -56,17 +58,12 @@ void print_int();
 %token <floatVal>   FLOAT_VALUE
 %token <strVal>     STRING_VALUE
 %token <varName>    VARIABLE_NAME
-%type  <intVal>     LINIE ASSIGMENT INT_EXP FLOAT_EXP ID_I ID_F
+%type  <intVal>     LINIE ASSIGMENT INT_EXP ID_I 
+%type  <floatVal>   FLOAT_EXP ID_F
 
 
 %%
 
-<<<<<<< HEAD
-LINIE   :   VARIABLE_DECLARATION SPACE ASSIGMENT DOT ENDLINE 
-        |   LINIE VARIABLE_DECLARATION SPACE ASSIGMENT DOT ENDLINE 
-        |   OUT SPACE VARIABLE_NAME DOT ENDLINE {print_val($3);}
-        |   LINIE OUT SPACE VARIABLE_NAME DOT ENDLINE {print_int();}
-=======
 START   :   LINIE ENDLINE START
         |   ENDLINE START
         |   LINIE
@@ -77,35 +74,38 @@ LINIE   :   VARIABLE_DECLARATION SPACE ASSIGMENT DOT
         |   LINIE VARIABLE_DECLARATION SPACE ASSIGMENT DOT
         |   OUT SPACE VARIABLE_NAME DOT {print_val($3);}
         |   LINIE OUT SPACE VARIABLE_NAME DOT {print_val($4);}
->>>>>>> 262dc5f9fe931ede0ef39667f8b738192c4f7c44
+        |   ASSIGMENT DOT
+        |   LINIE ASSIGMENT DOT
         ;
 
-ASSIGMENT   :  VARIABLE_NAME {add_int_name($1);add_int_val(0,$1);}
-            |  VARIABLE_NAME SPACE EQUALS SPACE VARIABLE_NAME {VarVar($1,$5); }
-            |  VARIABLE_NAME SPACE EQUALS SPACE FLOAT_VALUE   {add_float_name($1);add_float_val($5,$1);}
-            |  VARIABLE_NAME SPACE EQUALS SPACE INT_VALUE     {add_int_name($1);add_int_val($5,$1);}
-            |  VARIABLE_NAME SPACE EQUALS SPACE STRING_VALUE {add_string_name($1); add_string_val($5, $1);}
-            |  VARIABLE_NAME SPACE EQUALS SPACE INT_EXP       
-            |  VARIABLE_NAME SPACE EQUALS SPACE FLOAT_EXP           
+ASSIGMENT   :  VARIABLE_NAME                                    {add_int_name($1);add_int_val(0,$1);}
+            |  VARIABLE_NAME SPACE EQUALS SPACE VARIABLE_NAME   {VarVar($1,$5);}
+            |  VARIABLE_NAME SPACE EQUALS SPACE FLOAT_VALUE     {add_float_name($1);add_float_val($5,$1);}
+            |  VARIABLE_NAME SPACE EQUALS SPACE INT_VALUE       {add_int_name($1);add_int_val($5,$1);}
+            |  VARIABLE_NAME SPACE EQUALS SPACE STRING_VALUE    {add_string_name($1); add_string_val($5, $1);}
+            |  VARIABLE_NAME SPACE EQUALS SPACE FLOAT_EXP       {add_float_name($1);add_float_val($5,$1);}  
+            |  VARIABLE_NAME SPACE EQUALS SPACE INT_EXP         {add_int_name($1);add_int_val($5,$1);}   
             ;
 
 
-INT_EXP     :  INT_EXP SPACE PLUS SPACE INT_VALUE {printf("int a = 1 + 2.");}
-            |  INT_EXP SPACE MINUS SPACE INT_VALUE {printf("int a = 1 - 2.");}
-            |  ID_I
+INT_EXP     :  INT_EXP SPACE PLUS SPACE ID_I {$$ = $1 + $5;}
+            |  INT_EXP SPACE MINUS SPACE ID_I {$$ = $1 - $5;}
+            |  ID_I SPACE PLUS SPACE ID_I {$$ = $1 + $5;}
+            |  ID_I SPACE MINUS SPACE ID_I {$$ = $1 - $5;}
             ;
 
-ID_I        : VARIABLE_NAME {printf("Zamiana zmienniej na liczbe RZUCA TYLKO INTY");}
-            | INT_VALUE
+ID_I        : VARIABLE_NAME {$$ = get_int_val($1);}
+            | INT_VALUE {$$ = $1;}
             ;
 
-FLOAT_EXP   : FLOAT_EXP SPACE PLUS SPACE FLOAT_VALUE {printf("int a = 1.1 + 2.2.");}
-            | FLOAT_EXP SPACE MINUS SPACE FLOAT_VALUE {printf("int a = 1.1 - 2.2.");}
-            | ID_F
+FLOAT_EXP   :  FLOAT_EXP SPACE PLUS SPACE ID_F {$$ = $1 + $5;}
+            |  FLOAT_EXP SPACE MINUS SPACE ID_F {$$ = $1 - $5;}
+            |  ID_F SPACE PLUS SPACE ID_F {$$ = $1 + $5;}
+            |  ID_F SPACE MINUS SPACE ID_F {$$ = $1 - $5;}
             ;
 
-ID_F        : VARIABLE_NAME {printf("Zamiana zmienniej na liczbe RZUCA TYLKO FLOATY");}
-            | FLOAT_VALUE
+ID_F        : VARIABLE_NAME {$$ = get_float_val($1);}
+            | FLOAT_VALUE {$$ = $1;}
             ;
 
 %%
@@ -113,24 +113,12 @@ ID_F        : VARIABLE_NAME {printf("Zamiana zmienniej na liczbe RZUCA TYLKO FLO
 void add_int_name(char* name)
 {
         number_of_int_var++;
-<<<<<<< HEAD
-        int_name_array = realloc((number_of_int_var) * sizeof(char*));
-        int_array = realloc((number_of_int_var) * sizeof(int*));
-        int_name_array[number_of_int_var-1] = malloc(sizeof(name));
-=======
->>>>>>> 262dc5f9fe931ede0ef39667f8b738192c4f7c44
         strcpy(int_name_array[number_of_int_var-1], name);
 }
 
 void add_float_name(char* name)
 {
         number_of_float_var++;
-<<<<<<< HEAD
-        float_name_array = (char**) realloc((number_of_float_var) * sizeof(char*));
-        float_array = (char**) realloc((number_of_float_var) * sizeof(float*));
-        float_name_array[number_of_float_var-1] = malloc(sizeof(name));
-=======
->>>>>>> 262dc5f9fe931ede0ef39667f8b738192c4f7c44
         strcpy(float_name_array[number_of_float_var-1], name);
 }
 
@@ -191,6 +179,7 @@ int get_int_val(char *name)
         return ret;
         }
     }
+    
 }
 
 float get_float_val(char *name)
@@ -280,6 +269,7 @@ void print_val(char* name)
             if(strcmp(name,int_name_array[j]) == 0)
             {
                 printf("%d\n",get_int_val(name));
+                return;
             }
         }
     }
@@ -290,6 +280,7 @@ void print_val(char* name)
             if(strcmp(name,float_name_array[j]) == 0)
             {
                 printf("%.1f\n",get_float_val(name));
+                return;
             }
         }
     }
@@ -299,14 +290,8 @@ void print_val(char* name)
     }
 }
 
-void print_int()
-{
-    int i;
-    for(i = 0 ; i< number_of_int_var;i++)
-    {
-        printf("%d\n",int_array[i]);
-    }
-}
+
+
 
 int main(void) {
 
