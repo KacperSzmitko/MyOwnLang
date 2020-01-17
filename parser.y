@@ -31,6 +31,7 @@ void print_val(char* name);
 void VarVar(char* left,char* right);//funkcja do przypisywania zmiennej do zmiennej
 int get_var_type(char *name);//uzyskaj typ zmiennej 0 - int,  1 - float, 2 - string
 
+void print_int();
 %}
 
 %union {int intVal; float floatVal;char* strVal;char* varName;}
@@ -60,8 +61,8 @@ int get_var_type(char *name);//uzyskaj typ zmiennej 0 - int,  1 - float, 2 - str
 
 LINIE   :   VARIABLE_DECLARATION SPACE ASSIGMENT DOT ENDLINE 
         |   LINIE VARIABLE_DECLARATION SPACE ASSIGMENT DOT ENDLINE 
-        |   OUT SPACE VARIABLE_NAME DOT ENDLINE {print_val($3);printf($3);}
-        |   LINIE OUT SPACE VARIABLE_NAME DOT ENDLINE {print_val($4);}
+        |   OUT SPACE VARIABLE_NAME DOT ENDLINE {print_val($3);}
+        |   LINIE OUT SPACE VARIABLE_NAME DOT ENDLINE {print_int();}
         ;
 
 ASSIGMENT   :  VARIABLE_NAME {add_int_name($1);add_int_val(0,$1);}
@@ -97,8 +98,8 @@ ID_F        : VARIABLE_NAME {printf("Zamiana zmienniej na liczbe RZUCA TYLKO FLO
 void add_int_name(char* name)
 {
         number_of_int_var++;
-        int_name_array = malloc((number_of_int_var) * sizeof(char*));
-        int_array = malloc((number_of_int_var) * sizeof(int*));
+        int_name_array = realloc((number_of_int_var) * sizeof(char*));
+        int_array = realloc((number_of_int_var) * sizeof(int*));
         int_name_array[number_of_int_var-1] = malloc(sizeof(name));
         strcpy(int_name_array[number_of_int_var-1], name);
 }
@@ -106,8 +107,8 @@ void add_int_name(char* name)
 void add_float_name(char* name)
 {
         number_of_float_var++;
-        float_name_array = malloc((number_of_float_var) * sizeof(char*));
-        float_array = malloc((number_of_float_var) * sizeof(float*));
+        float_name_array = (char**) realloc((number_of_float_var) * sizeof(char*));
+        float_array = (char**) realloc((number_of_float_var) * sizeof(float*));
         float_name_array[number_of_float_var-1] = malloc(sizeof(name));
         strcpy(float_name_array[number_of_float_var-1], name);
 }
@@ -240,6 +241,15 @@ void print_val(char* name)
     if(type == 2)
     {
         ;
+    }
+}
+
+void print_int()
+{
+    int i;
+    for(i = 0 ; i< number_of_int_var;i++)
+    {
+        printf("%d\n",int_array[i]);
     }
 }
 

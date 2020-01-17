@@ -97,9 +97,10 @@ void print_val(char* name);
 void VarVar(char* left,char* right);//funkcja do przypisywania zmiennej do zmiennej
 int get_var_type(char *name);//uzyskaj typ zmiennej 0 - int,  1 - float, 2 - string
 
+void print_int();
 
 /* Line 371 of yacc.c  */
-#line 103 "y.tab.c"
+#line 104 "y.tab.c"
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -181,11 +182,11 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 387 of yacc.c  */
-#line 36 "parser.y"
+#line 37 "parser.y"
 int intVal; float floatVal;char* strVal;char* varName;
 
 /* Line 387 of yacc.c  */
-#line 189 "y.tab.c"
+#line 190 "y.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -213,7 +214,7 @@ int yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 217 "y.tab.c"
+#line 218 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -513,9 +514,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    61,    61,    62,    63,    64,    67,    68,    69,    70,
-      71,    72,    73,    77,    78,    79,    82,    83,    86,    87,
-      88,    91,    92
+       0,    62,    62,    63,    64,    65,    68,    69,    70,    71,
+      72,    73,    74,    78,    79,    80,    83,    84,    87,    88,
+      89,    92,    93
 };
 #endif
 
@@ -1435,79 +1436,79 @@ yyreduce:
     {
         case 4:
 /* Line 1792 of yacc.c  */
-#line 63 "parser.y"
-    {print_val((yyvsp[(3) - (5)].varName));printf((yyvsp[(3) - (5)].varName));}
+#line 64 "parser.y"
+    {print_val((yyvsp[(3) - (5)].varName));}
     break;
 
   case 5:
 /* Line 1792 of yacc.c  */
-#line 64 "parser.y"
-    {print_val((yyvsp[(4) - (6)].varName));}
+#line 65 "parser.y"
+    {print_int();}
     break;
 
   case 6:
 /* Line 1792 of yacc.c  */
-#line 67 "parser.y"
+#line 68 "parser.y"
     {add_int_name((yyvsp[(1) - (1)].varName));add_int_val(0,(yyvsp[(1) - (1)].varName));}
     break;
 
   case 7:
 /* Line 1792 of yacc.c  */
-#line 68 "parser.y"
+#line 69 "parser.y"
     {VarVar((yyvsp[(1) - (5)].varName),(yyvsp[(5) - (5)].varName)); }
     break;
 
   case 8:
 /* Line 1792 of yacc.c  */
-#line 69 "parser.y"
+#line 70 "parser.y"
     {add_float_name((yyvsp[(1) - (5)].varName));add_float_val((yyvsp[(5) - (5)].floatVal),(yyvsp[(1) - (5)].varName));}
     break;
 
   case 9:
 /* Line 1792 of yacc.c  */
-#line 70 "parser.y"
+#line 71 "parser.y"
     {add_int_name((yyvsp[(1) - (5)].varName));add_int_val((yyvsp[(5) - (5)].intVal),(yyvsp[(1) - (5)].varName));}
     break;
 
   case 13:
 /* Line 1792 of yacc.c  */
-#line 77 "parser.y"
+#line 78 "parser.y"
     {printf("int a = 1 + 2.");}
     break;
 
   case 14:
 /* Line 1792 of yacc.c  */
-#line 78 "parser.y"
+#line 79 "parser.y"
     {printf("int a = 1 - 2.");}
     break;
 
   case 16:
 /* Line 1792 of yacc.c  */
-#line 82 "parser.y"
+#line 83 "parser.y"
     {printf("Zamiana zmienniej na liczbe RZUCA TYLKO INTY");}
     break;
 
   case 18:
 /* Line 1792 of yacc.c  */
-#line 86 "parser.y"
+#line 87 "parser.y"
     {printf("int a = 1.1 + 2.2.");}
     break;
 
   case 19:
 /* Line 1792 of yacc.c  */
-#line 87 "parser.y"
+#line 88 "parser.y"
     {printf("int a = 1.1 - 2.2.");}
     break;
 
   case 21:
 /* Line 1792 of yacc.c  */
-#line 91 "parser.y"
+#line 92 "parser.y"
     {printf("Zamiana zmienniej na liczbe RZUCA TYLKO FLOATY");}
     break;
 
 
 /* Line 1792 of yacc.c  */
-#line 1511 "y.tab.c"
+#line 1512 "y.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1739,14 +1740,14 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 95 "parser.y"
+#line 96 "parser.y"
 
 
 void add_int_name(char* name)
 {
         number_of_int_var++;
-        int_name_array = malloc((number_of_int_var) * sizeof(char*));
-        int_array = malloc((number_of_int_var) * sizeof(int*));
+        int_name_array = realloc((number_of_int_var) * sizeof(char*));
+        int_array = realloc((number_of_int_var) * sizeof(int*));
         int_name_array[number_of_int_var-1] = malloc(sizeof(name));
         strcpy(int_name_array[number_of_int_var-1], name);
 }
@@ -1754,8 +1755,8 @@ void add_int_name(char* name)
 void add_float_name(char* name)
 {
         number_of_float_var++;
-        float_name_array = malloc((number_of_float_var) * sizeof(char*));
-        float_array = malloc((number_of_float_var) * sizeof(float*));
+        float_name_array = (char**) realloc((number_of_float_var) * sizeof(char*));
+        float_array = (char**) realloc((number_of_float_var) * sizeof(float*));
         float_name_array[number_of_float_var-1] = malloc(sizeof(name));
         strcpy(float_name_array[number_of_float_var-1], name);
 }
@@ -1888,6 +1889,15 @@ void print_val(char* name)
     if(type == 2)
     {
         ;
+    }
+}
+
+void print_int()
+{
+    int i;
+    for(i = 0 ; i< number_of_int_var;i++)
+    {
+        printf("%d\n",int_array[i]);
     }
 }
 
