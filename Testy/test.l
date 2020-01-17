@@ -44,6 +44,7 @@ minus (\-)
 {variable} {
     printf("15");
 }
+\n {printf("16");}
 
 %%
 

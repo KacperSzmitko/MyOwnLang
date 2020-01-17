@@ -1,8 +1,10 @@
-/* A Bison parser, made by GNU Bison 2.7.  */
 
-/* Bison interface for Yacc-like parsers in C
+/* A Bison parser, made by GNU Bison 2.4.1.  */
+
+/* Skeleton interface for Bison's Yacc-like parsers in C
    
-      Copyright (C) 1984, 1989-1990, 2000-2012 Free Software Foundation, Inc.
+      Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
+   Free Software Foundation, Inc.
    
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,15 +32,6 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
-/* Enabling traces.  */
-#ifndef YYDEBUG
-# define YYDEBUG 0
-#endif
-#if YYDEBUG
-extern int yydebug;
-#endif
 
 /* Tokens.  */
 #ifndef YYTOKENTYPE
@@ -55,15 +48,25 @@ extern int yydebug;
      COMMA = 264,
      COLON = 265,
      SPACE = 266,
-     OUT = 267,
-     ENDLINE = 268,
-     EQUALS = 269,
-     PLUS = 270,
-     MINUS = 271,
-     INT_VALUE = 272,
-     FLOAT_VALUE = 273,
-     STRING_VALUE = 274,
-     VARIABLE_NAME = 275
+     TAB = 267,
+     PRINT = 268,
+     ENDLINE = 269,
+     EQUALS = 270,
+     PLUS = 271,
+     MINUS = 272,
+     MUL = 273,
+     DIV = 274,
+     MOD = 275,
+     EQUAL = 276,
+     NOT_EQUAL = 277,
+     GREATER = 278,
+     LESS = 279,
+     GREATER_OR_EQUAL = 280,
+     LESS_OR_EQUAL = 281,
+     INT_VALUE = 282,
+     FLOAT_VALUE = 283,
+     STRING_VALUE = 284,
+     VARIABLE_NAME = 285
    };
 #endif
 /* Tokens.  */
@@ -76,27 +79,40 @@ extern int yydebug;
 #define COMMA 264
 #define COLON 265
 #define SPACE 266
-#define OUT 267
-#define ENDLINE 268
-#define EQUALS 269
-#define PLUS 270
-#define MINUS 271
-#define INT_VALUE 272
-#define FLOAT_VALUE 273
-#define STRING_VALUE 274
-#define VARIABLE_NAME 275
+#define TAB 267
+#define PRINT 268
+#define ENDLINE 269
+#define EQUALS 270
+#define PLUS 271
+#define MINUS 272
+#define MUL 273
+#define DIV 274
+#define MOD 275
+#define EQUAL 276
+#define NOT_EQUAL 277
+#define GREATER 278
+#define LESS 279
+#define GREATER_OR_EQUAL 280
+#define LESS_OR_EQUAL 281
+#define INT_VALUE 282
+#define FLOAT_VALUE 283
+#define STRING_VALUE 284
+#define VARIABLE_NAME 285
+
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
 {
-/* Line 2058 of yacc.c  */
-#line 41 "parser.y"
+
+/* Line 1676 of yacc.c  */
+#line 8 "parser.y"
 int intVal; float floatVal;char* strVal;char* varName;
 
-/* Line 2058 of yacc.c  */
-#line 100 "y.tab.h"
+
+/* Line 1676 of yacc.c  */
+#line 116 "y.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -105,18 +121,4 @@ int intVal; float floatVal;char* strVal;char* varName;
 
 extern YYSTYPE yylval;
 
-#ifdef YYPARSE_PARAM
-#if defined __STDC__ || defined __cplusplus
-int yyparse (void *YYPARSE_PARAM);
-#else
-int yyparse ();
-#endif
-#else /* ! YYPARSE_PARAM */
-#if defined __STDC__ || defined __cplusplus
-int yyparse (void);
-#else
-int yyparse ();
-#endif
-#endif /* ! YYPARSE_PARAM */
 
-#endif /* !YY_YY_Y_TAB_H_INCLUDED  */

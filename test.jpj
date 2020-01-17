@@ -1,5 +1,7 @@
-Utwórz zmienną a = 5,1.
-Utwórz zmienną c = 5,1 + a + a.
-Wyświetl zmienną c.
-c = 10,6 + a.
-Wyświetl zmienną c.
+Utwórz zmienną a = 2.
+Utwórz zmienną b = 9.
+a = a + 2 + 2 - 1.
+a = a * a.
+Jeżeli a == 25, to:
+    Wyświetl a.
+Wyświetl b.

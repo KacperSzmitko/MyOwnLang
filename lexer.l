@@ -9,8 +9,8 @@
 space ([ ])
 tab (\t)
 endline (\n)
-intnumber ([\-]?[0-9]+)
-floatnumber ([\-]?[0-9]*,?[0-9]+)
+int_number ([\-]?[0-9]+)
+float_number ([\-]?[0-9]*,?[0-9]+)
 string (\"(\\.|[^"])*\")
 variable ([a-zA-Z][_a-zA-Z0-9]*)
 dot (\.)
@@ -19,12 +19,21 @@ colon (:)
 equals (=)
 plus (\+)
 minus (\-)
+mul (\*)
+div (\/)
+mod (%)
+equal (==)
+not_equal (!=)
+greater (>)
+less (<)
+greater_or_equal (>=)
+less_or_equal (<=)
 
 
 %%
 
 "Utwórz zmienną" { return VARIABLE_DECLARATION; }
-"Wyświetl zmienną" { return OUT; }
+"Wyświetl" { return PRINT; }
 "Jeżeli" { return IF_START; }
 "Dopóki" { return WHILE_START; }
 "to:" { return THEN; }
@@ -33,14 +42,24 @@ minus (\-)
 {comma} { return COMMA; }
 {colon} { return COLON; }
 {space} {return SPACE; }
+{tab}   {return TAB;}
 {equals} { return EQUALS; }
 {plus} { return PLUS; }
 {minus} { return MINUS; }
-{intnumber} {
+{mul} { return MUL; }
+{div} { return DIV; }
+{mod} { return MOD; }
+{equal} { return EQUAL; } 
+{not_equal} { return NOT_EQUAL; } 
+{greater} { return GREATER; }
+{less} { return LESS; }
+{greater_or_equal} { return GREATER_OR_EQUAL; } 
+{less_or_equal} { return LESS_OR_EQUAL; }
+{int_number} {
     yylval.intVal = atoi(yytext); 
     return INT_VALUE;
 }
-{floatnumber} {
+{float_number} {
     char* sf = malloc(sizeof(yytext));
     int i = 0;
     for (i; i < (sizeof(yytext) / sizeof(char)); i++) {
@@ -51,28 +70,9 @@ minus (\-)
     return FLOAT_VALUE;
 }
 {string} {
-    int i;
-    for (i = 0; yytext[i] != '\0'; i++);
-    if (i == 2) yylval.strVal = strdup("");
-    if (i == 3) yylval.strVal = strdup(&yytext[1]);
-    else {
-    
-    char* s;
-    
-    int j;
-    for (i = 0; yytext[i] != '\0'; i++);
-    s = malloc((i-1) * sizeof(char));
 
-    for (i = 1; yytext[i+1] != '\0'; i++) {
-        s[i-1] = yytext[i];
-        
-    }
-    
-
-    printf(s);
 
     yylval.strVal = strdup(yytext);
-    }
     return STRING_VALUE;
 }
 {variable} {
