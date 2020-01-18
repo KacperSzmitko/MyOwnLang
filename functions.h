@@ -5,6 +5,9 @@
 int level;
 int tabs_level;
 
+char conversion_buf[12];
+char file_string_buf[1024];
+FILE *file;
 
 int number_of_int_var; //licznik zmiennych typu int
 int number_of_float_var; //licznik zmiennych typu float
@@ -34,7 +37,10 @@ int get_int_val(char *name);//uzyskaj warotsc danej zmiennej int
 float get_float_val(char *name);//uzyskaj wartosc danej zmiennej float
 char* get_string_val(char* name);//uzyskazj wartosc danej zmiennej string
 
-void print_val(char* name);
+char* get_string_from_var(char* name);
+char* get_string_from_int(int val);
+char* get_string_from_float(float val);
+
 void VarVar(char* left,char* right);//funkcja do przypisywania zmiennej do zmiennej
 int get_var_type(char *name);//uzyskaj typ zmiennej 0 - int,  1 - float, 2 - string
 
@@ -47,6 +53,11 @@ void check_float_float(float left, int op, float right);
 void check_string_string(char* left, int op, char* right);
 void check_int_float(int left, int op, float right);
 void check_float_int(float left, int op, int right);
+
+void open_file(char* fname);
+void read_file(char* vname);
+void write_file(char* text);
+void close_file();
 
 void init() {
     level = 0;
@@ -70,7 +81,7 @@ void init() {
     float_array = malloc(1024 * sizeof(float*));
 
     string_array = malloc(1024 * sizeof(char*));
-    for (i = 0; i < 1024; i++) string_name_array[i] = malloc((1024) * sizeof(char));
+    for (i = 0; i < 1024; i++) string_name_array[i] = (char*)calloc(1024, sizeof(char));
 }
 
 int check_tabs() {
@@ -115,7 +126,7 @@ void add_int_val(int val,char* name)
         if(strcmp(name,int_name_array[i]) == 0)
         {
             int_array[i] = val;
-             break;
+            break;
         }
     }
 }
@@ -137,12 +148,14 @@ void add_float_val(float val, char* name)
 void add_string_val(char* val, char* name)
 {
     if (check_tabs() == 0) return;
+
     int i;
-    for(i = 0;i<number_of_string_var;i++)
+    for(i = 0;i < number_of_string_var; i++)
     {
         if(strcmp(name,string_name_array[i]) == 0)
         {
             string_array[i] = val;
+            
             break;
         }
     }
@@ -185,18 +198,50 @@ char* get_string_val(char *name)
 {
     if (check_tabs() == 0) return 0;
 
+
     char* ret;
     int i;
     for(i = 0;i<number_of_string_var;i++)
     {    
         if(strcmp(name,string_name_array[i]) == 0)
         {
-        ret = string_array[i];
-        return ret;
+            ret = string_array[i];
+            return ret;
         }
     }
 }
 
+char* get_string_from_int(int val) {
+    if (check_tabs() == 0) return 0;
+
+    sprintf(conversion_buf, "%d", val);
+    return conversion_buf;
+}
+
+char* get_string_from_float(float val) {
+    if (check_tabs() == 0) return 0;
+
+    char r[12];
+    sprintf(conversion_buf, "%f", val);
+    return conversion_buf;
+}
+
+char* get_string_from_var(char *name) {
+    if (check_tabs() == 0) return 0;
+
+    int type = get_var_type(name);
+
+    switch (type) {
+        case 0:
+            return get_string_from_int(get_int_val(name));
+            break;
+        case 1:
+            return get_string_from_float(get_float_val(name));
+            break;
+        case 2:
+            return get_string_val(name);
+    }
+}
 
 int get_var_type(char *name)
 {
@@ -246,40 +291,6 @@ void VarVar(char* left,char* right)
     {
         add_string_name(left);
         add_string_val(get_string_val(right),left);
-    }
-}
-
-void print_val(char* name)
-{
-    if (check_tabs() == 0) return;
-    
-    int type = get_var_type(name);
-    int j;
-    if(type == 0)
-    {
-    for(j = 0;j< number_of_int_var;j++)
-        {
-            if(strcmp(name,int_name_array[j]) == 0)
-            {
-                printf("%d\n",get_int_val(name));
-                return;
-            }
-        }
-    }
-    if(type == 1)
-    {
-    for(j = 0;j< number_of_float_var;j++)
-        {
-            if(strcmp(name,float_name_array[j]) == 0)
-            {
-                printf("%.1f\n",get_float_val(name));
-                return;
-            }
-        }
-    }
-    if(type == 2)
-    {
-        ;
     }
 }
 
@@ -492,4 +503,65 @@ void check_float_int(float left, int op, int right) {
         //ERROR
         break;
     }
+}
+
+void open_file(char* fname) {
+    if (check_tabs() == 0) return;
+
+    file = fopen(fname, "a+");
+    if (file == NULL) {
+        //ERROR
+        return;
+    } 
+}
+
+void read_file(char *vname) {
+    if (check_tabs() == 0) return;
+    
+    if (file == NULL) {
+        //ERROR
+        return;
+    } 
+
+    int type = get_var_type(vname);
+
+    int int_num;
+    float float_num;
+
+    switch (type) {
+    case 0:
+        fscanf(file, "%d", &int_num);
+        add_int_val(int_num, vname);
+        break;
+    case 1:
+        fscanf(file, "%f", &float_num);
+        add_float_val(float_num, vname);
+        break;
+    case 2:
+        fscanf(file, "%s", file_string_buf);
+        add_string_val(file_string_buf, vname);
+        break;
+    }
+}
+
+void write_file(char* text) {
+    if (check_tabs() == 0) return;
+
+    if (file == NULL) {
+        //ERROR
+        return;
+    } 
+
+    fprintf(file, "%s", text);
+}
+
+void close_file() {
+    if (check_tabs() == 0) return;
+
+    if (file == NULL) {
+        //ERROR
+        return;
+    } 
+
+    fclose(file);
 }

@@ -11,7 +11,10 @@ void yyerror (char *s);
 %token              IF_START
 %token              WHILE_START
 %token              THEN
-%token              ELSE
+%token              OPEN_FILE
+%token              READ_FILE
+%token              WRITE_FILE
+%token              CLOSE_FILE
 %token              DOT
 %token              COMMA
 %token              COLON
@@ -37,6 +40,7 @@ void yyerror (char *s);
 %token <varName>    VARIABLE_NAME
 %type  <intVal>     ASSIGMENT INT_EXP ID_I IF_OP CONDITION
 %type  <floatVal>   FLOAT_EXP ID_F
+%type  <strVal>     GET_STRING
 
 %%
 
@@ -46,8 +50,8 @@ START       :   TABS LINE ENDLINE TABS_CLEAR START
             |   TABS               
             ;
 
-TABS        :   TAB TABS {tabs_level++;}
-            |   SPACE SPACE SPACE SPACE TABS {tabs_level++;}
+TABS        :   TAB TABS                                        {tabs_level++;}
+            |   SPACE SPACE SPACE SPACE TABS                    {tabs_level++;}
             |   SPACE SPACE SPACE
             |   SPACE SPACE
             |   SPACE
@@ -57,9 +61,19 @@ TABS        :   TAB TABS {tabs_level++;}
 TABS_CLEAR  :   {tabs_level = 0;}
 
 LINE        :   VARIABLE_DECLARATION SPACE ASSIGMENT DOT
-            |   PRINT SPACE VARIABLE_NAME DOT {print_val($3);}
+            |   PRINT_OP DOT
             |   ASSIGMENT DOT
             |   IF_START SPACE CONDITION COMMA SPACE THEN
+            |   FILE_OP DOT
+            ;
+
+FILE_OP     :   OPEN_FILE SPACE GET_STRING                      {open_file($3);}
+            |   READ_FILE SPACE VARIABLE_NAME                   {read_file($3);}
+            |   WRITE_FILE SPACE GET_STRING                     {write_file($3);}
+            |   CLOSE_FILE                                      {close_file();}
+            ;
+
+PRINT_OP    :   PRINT SPACE GET_STRING                          {printf("%s", $3);}
             ;
 
 CONDITION   :  VARIABLE_NAME SPACE IF_OP SPACE VARIABLE_NAME    {check_var_var($1, $3, $5);}
@@ -118,6 +132,12 @@ FLOAT_EXP   :  FLOAT_EXP SPACE PLUS SPACE ID_F                  {$$ = $1 + $5;}
 
 ID_F        : VARIABLE_NAME                                     {$$ = get_float_val($1);}
             | FLOAT_VALUE                                       {$$ = $1;}
+            ;
+
+GET_STRING  :   STRING_VALUE                                    {$$ = $1;}
+            |   INT_VALUE                                       {$$ = get_string_from_int($1);}
+            |   FLOAT_VALUE                                     {$$ = get_string_from_float($1);}
+            |   VARIABLE_NAME                                   {$$ = get_string_from_var($1);}
             ;
 
 %%

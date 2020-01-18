@@ -3,8 +3,8 @@
 #include <string.h>
 #include "y.tab.h"
 %}
-%option yylineno
 
+%option yylineno
 
 space ([ ])
 tab (\t)
@@ -29,7 +29,6 @@ less (<)
 greater_or_equal (>=)
 less_or_equal (<=)
 
-
 %%
 
 "Utwórz zmienną" { return VARIABLE_DECLARATION; }
@@ -37,7 +36,10 @@ less_or_equal (<=)
 "Jeżeli" { return IF_START; }
 "Dopóki" { return WHILE_START; }
 "to:" { return THEN; }
-"W przeciwnym razie" { return ELSE; }
+"Otwórz plik o nazwie" { return OPEN_FILE; }
+"Odczytaj z pliku do zmiennej" { return READ_FILE; }
+"Wpisz do pliku" { return WRITE_FILE; }
+"Zamknij plik" { return CLOSE_FILE; }
 {dot} { return DOT; }
 {comma} { return COMMA; }
 {colon} { return COLON; }
@@ -60,7 +62,7 @@ less_or_equal (<=)
     return INT_VALUE;
 }
 {float_number} {
-    char* sf = malloc(sizeof(yytext));
+    char* sf = malloc(sizeof(char) * yyleng);
     int i = 0;
     for (i; i < (sizeof(yytext) / sizeof(char)); i++) {
         if (yytext[i] != ',') sf[i] = yytext[i];
@@ -70,16 +72,16 @@ less_or_equal (<=)
     return FLOAT_VALUE;
 }
 {string} {
-
-
-    yylval.strVal = strdup(yytext);
+    char* s = (char*)calloc(yyleng - 2, sizeof(char));
+    int i;
+    for (i = 1; i < yyleng - 1; i++) s[i-1] = yytext[i];
+    yylval.strVal = strdup(s);
     return STRING_VALUE;
 }
 {variable} {
     yylval.varName = strdup(yytext);
     return VARIABLE_NAME;
 }
-
 {endline} {
     yylineno++;
     return ENDLINE;

@@ -1,7 +1,5 @@
-Utwórz zmienną a = 2.
-Utwórz zmienną b = 9.
-a = a + 2 + 2 - 1.
-a = a * a.
-Jeżeli a == 25, to:
-    Wyświetl a.
+Utwórz zmienną b = "".
+Otwórz plik o nazwie "plik.txt".
+Odczytaj z pliku do zmiennej b.
 Wyświetl b.
+Zamknij plik.

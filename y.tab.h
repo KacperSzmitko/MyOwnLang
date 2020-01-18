@@ -43,30 +43,33 @@
      IF_START = 259,
      WHILE_START = 260,
      THEN = 261,
-     ELSE = 262,
-     DOT = 263,
-     COMMA = 264,
-     COLON = 265,
-     SPACE = 266,
-     TAB = 267,
-     PRINT = 268,
-     ENDLINE = 269,
-     EQUALS = 270,
-     PLUS = 271,
-     MINUS = 272,
-     MUL = 273,
-     DIV = 274,
-     MOD = 275,
-     EQUAL = 276,
-     NOT_EQUAL = 277,
-     GREATER = 278,
-     LESS = 279,
-     GREATER_OR_EQUAL = 280,
-     LESS_OR_EQUAL = 281,
-     INT_VALUE = 282,
-     FLOAT_VALUE = 283,
-     STRING_VALUE = 284,
-     VARIABLE_NAME = 285
+     OPEN_FILE = 262,
+     READ_FILE = 263,
+     WRITE_FILE = 264,
+     CLOSE_FILE = 265,
+     DOT = 266,
+     COMMA = 267,
+     COLON = 268,
+     SPACE = 269,
+     TAB = 270,
+     PRINT = 271,
+     ENDLINE = 272,
+     EQUALS = 273,
+     PLUS = 274,
+     MINUS = 275,
+     MUL = 276,
+     DIV = 277,
+     MOD = 278,
+     EQUAL = 279,
+     NOT_EQUAL = 280,
+     GREATER = 281,
+     LESS = 282,
+     GREATER_OR_EQUAL = 283,
+     LESS_OR_EQUAL = 284,
+     INT_VALUE = 285,
+     FLOAT_VALUE = 286,
+     STRING_VALUE = 287,
+     VARIABLE_NAME = 288
    };
 #endif
 /* Tokens.  */
@@ -74,30 +77,33 @@
 #define IF_START 259
 #define WHILE_START 260
 #define THEN 261
-#define ELSE 262
-#define DOT 263
-#define COMMA 264
-#define COLON 265
-#define SPACE 266
-#define TAB 267
-#define PRINT 268
-#define ENDLINE 269
-#define EQUALS 270
-#define PLUS 271
-#define MINUS 272
-#define MUL 273
-#define DIV 274
-#define MOD 275
-#define EQUAL 276
-#define NOT_EQUAL 277
-#define GREATER 278
-#define LESS 279
-#define GREATER_OR_EQUAL 280
-#define LESS_OR_EQUAL 281
-#define INT_VALUE 282
-#define FLOAT_VALUE 283
-#define STRING_VALUE 284
-#define VARIABLE_NAME 285
+#define OPEN_FILE 262
+#define READ_FILE 263
+#define WRITE_FILE 264
+#define CLOSE_FILE 265
+#define DOT 266
+#define COMMA 267
+#define COLON 268
+#define SPACE 269
+#define TAB 270
+#define PRINT 271
+#define ENDLINE 272
+#define EQUALS 273
+#define PLUS 274
+#define MINUS 275
+#define MUL 276
+#define DIV 277
+#define MOD 278
+#define EQUAL 279
+#define NOT_EQUAL 280
+#define GREATER 281
+#define LESS 282
+#define GREATER_OR_EQUAL 283
+#define LESS_OR_EQUAL 284
+#define INT_VALUE 285
+#define FLOAT_VALUE 286
+#define STRING_VALUE 287
+#define VARIABLE_NAME 288
 
 
 
@@ -112,7 +118,7 @@ int intVal; float floatVal;char* strVal;char* varName;
 
 
 /* Line 1676 of yacc.c  */
-#line 116 "y.tab.h"
+#line 122 "y.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
