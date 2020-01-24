@@ -1560,7 +1560,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 76 "parser.y"
-    {printf("%s", (yyvsp[(3) - (3)].strVal));}
+    {print((yyvsp[(3) - (3)].strVal));}
     break;
 
   case 23:

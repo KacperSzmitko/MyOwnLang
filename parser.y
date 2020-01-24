@@ -73,7 +73,7 @@ FILE_OP     :   OPEN_FILE SPACE GET_STRING                      {open_file($3);}
             |   CLOSE_FILE                                      {close_file();}
             ;
 
-PRINT_OP    :   PRINT SPACE GET_STRING                          {printf("%s", $3);}
+PRINT_OP    :   PRINT SPACE GET_STRING                          {print($3);}
             ;
 
 CONDITION   :  VARIABLE_NAME SPACE IF_OP SPACE VARIABLE_NAME    {check_var_var($1, $3, $5);}

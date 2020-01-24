@@ -1,5 +1,5 @@
-Utwórz zmienną b = "".
-Otwórz plik o nazwie "plik.txt".
-Odczytaj z pliku do zmiennej b.
+Utwórz zmienną b = 2.
+b = b + b + 3.
 Wyświetl b.
-Zamknij plik.
+Jeżeli b == 7, to:
+    

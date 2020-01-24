@@ -25,6 +25,8 @@ void init(); //Inicjalizacja zmiennych globalnych
 
 int check_tabs();
 
+void print(char* val);
+
 void add_int_val(int val, char* name);//zapisz dana wartosc int do zmiennej
 void add_float_val(float val, char* name);//zapisz dana wartosc float do zmiennej
 void add_string_val(char* val, char* name);//zapisz dana wartosc string do zmiennej
@@ -94,6 +96,12 @@ int check_tabs() {
     } else {
         return 0;
     }
+}
+
+void print(char* val) {
+    if (check_tabs() == 0) return;
+
+    printf("%s", val);
 }
 
 void add_int_name(char* name)
