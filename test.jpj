@@ -1,5 +1,17 @@
-Utwórz zmienną b = 2.
-b = b + b + 3.
+Utwórz zmienną a = 2.
+a = a + a + 3 - 1 + 1.
+Jeżeli a == 7, to:
+    Wyświetl "TEST1".
+    a = a + 1.
+Jeżeli a == 7, to:
+    Wyświetl "TEST2".
+Jeżeli a > 7, to:
+    Wyświetl "TEST3".
+    Jeżeli a >= 8, to:
+        Wyświetl "TEST4".
+Utwórz zmienną b = "".
+Otwórz plik o nazwie "plik_tekstowy.txt".
+Odczytaj z pliku do zmiennej b.
 Wyświetl b.
-Jeżeli b == 7, to:
-    
+Wpisz do pliku a.
+Zamknij plik.
