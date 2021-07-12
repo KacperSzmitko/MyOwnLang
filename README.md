@@ -16,7 +16,7 @@ The language interpreter has been written in C using Flex and Bison programs. Fl
 Example for an instruction: Utwórz zmienną a = 2.
 
 Tokens:
-- VARIABLE_DECLARATION (regex: "Create variable")
+- VARIABLE_DECLARATION (regex: "Utwórz zmienną")
 - VARIABLE_NAME (regex: "[a-zA-Z][_a-zA-Z0-9]*")
 - EQUALS (regex: '=')
 - INT_VALUE (regex: '[¯]?[0-9]+')
