@@ -25,7 +25,7 @@ Tokens:
 
 There is no declaration of variable types in the language itself. What type a variable is is determined by the initial assignment of a value to the variable. If only a number is assigned, the variable will be of type int, if a number with a comma value is assigned, the variable will be of type float, if text (characters in quotes "") is assigned, the variable will be of type string (char*). If a variable is declared without initial assignment, it will be of type int by default.
 
-#Functions available in the language and their examples
+# Functions available in the language and their examples
 Create variables of type integer, natural or text:
 - Utwórz zmienną a = 2.
 - Utwórz zmienną a = 2,2.
