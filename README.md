@@ -13,7 +13,7 @@ Examples of stylistic differences compared to the C language:
 
 # Method description
 The language interpreter has been written in C using Flex and Bison programs. Flex is responsible for lexical analysis and Bison for syntactic analysis. Flex divides the received instructions into sequences of tokens, and Bison detects the grammatical structure of the tokens and calls the appropriate functions.
-Example for an instruction: Create the variable a = 2.
+Example for an instruction: Utwórz zmienną a = 2.
 
 Tokens:
 - VARIABLE_DECLARATION (regex: "Create variable")
